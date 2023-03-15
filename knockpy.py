@@ -35,37 +35,17 @@ def search():
 
             with open('knockpy_report/knockpy_output.json','r') as f:
                 subdomain= json.load(f)
-                # for line in f:
-                #     subdomains.append(line.strip())
-            # subdomains= json.loads(knockpy_output.json)
-            
-
-            # with open("knockpy_subdomains.txt", "w") as f:
-            #     f.write("\n".join(subdomains))
-
-            # temp_result= {}
-            # for key,value in subdomains :
-            #     ipaddr=value['ipaddr']
-            #     temp_result[key]=ipaddr
-
-
+               
             mongo_db.knockpy.insert_one({
                 'domain': domain,
                 'subdomains' :subdomain,
-                # 'output': output_data,
             })
 
         # Retrieve data from MongoDB
         
         domain_data = mongo_db.knockpy.find_one({'domain': domain})
-       
-        
-            
-        
-            
 
         results.append(domain_data)
-       
 
         clear_space = os.system('rm knockpy_report/knockpy_output.json')
 

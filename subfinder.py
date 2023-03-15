@@ -44,7 +44,7 @@ def search():
                 print("File does not exist")
 
         # Retrieve data from MongoDB
-        domain_data = mongo_db.subfinder.find_one({'domain': domain},{"output.host":1, "output.ip":1,"_id":0 ,"domain":domain})
+        domain_data = mongo_db.subfinder.find_one({'domain': domain},{"output.host":1, "output.ip":1,"_id":0 ,"domain":1})
         results.append(domain_data)
 
     json_results = json_util.dumps(results)

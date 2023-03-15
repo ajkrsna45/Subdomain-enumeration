@@ -5,7 +5,7 @@ from bson import json_util
 import json
 import os
 
-app = Flask(__name__)
+app = Flask(_name_)
 mongo_client = pymongo.MongoClient('mongodb+srv://vaibhav:vaib12345@vaibemsec.ioi6mqs.mongodb.net/')
 mongo_db = mongo_client['SubTest']
 
@@ -43,8 +43,11 @@ def search():
             with open('assetfinder_output.json') as f:
                 data = json.load(f)
 
-            for subdomain, ip in data.items():
-                mongo_db.assetfinder.insert_one({'subdomain': subdomain, 'ip': ip})
+         
+            mongo_db.assetfinder.insert_one({
+                'domain': domain,
+                'subdomains' : output_dict
+            })
 
             if os.path.exists('assetfinder_subdomains.txt'):
                 os.remove('assetfinder_subdomains.txt')
@@ -63,5 +66,5 @@ def search():
     json_results = json_util.dumps(results)
     return jsonify(json_results)
 
-if __name__ == '__main__':
+if _name_ == '_main_':
     app.run(debug=True)
